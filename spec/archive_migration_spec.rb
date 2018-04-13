@@ -3,8 +3,7 @@ RSpec.describe ArchiveMigration do
     expect(ArchiveMigration::VERSION).not_to be nil
   end
 
-  it "run archive function" do
-    ArchiveMigration.archive
-    ArchiveMigration.delete_from_schema_table
+  it "testing" do
+    ArchiveMigration.recover
   end
 end

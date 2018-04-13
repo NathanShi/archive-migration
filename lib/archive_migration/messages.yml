@@ -1,5 +1,13 @@
-moving_migrations:
-- "Squasher's created the `:green<squasher>` database for its needs."
-- It might be useful to keep it if any of your deleted migrations inserts data or
-- you squash migrations in a few steps (look at -r option).
-- "Keep it (:green<yes> / :red<no>)?"
+archive_by_year: "Would you like to archive all files by year (:green<y> / :red<n>)?"
+creating_archive_folder: "Creating archive folder...\n"
+moving_files: "Moving migration files...\n"
+generating_migration: "Generating migration with :green<latest version number>...\n"
+delete_from_schema_table: "Do you want to clean your schema version table (:red<y>/:green<n>)?"
+connecting_mysql: "Connecting to mysql as :red<root> user...\n"
+connecting_database: "Connecting to default database (:green<y> / :red<n>)"
+selection: "Please select the correct database:\n"
+cleaning: "Cleaning the schema migration table...\n"
+wrong_inputs: ":red<Please enter valid option...>\n"
+have_run_all_migrations: "Please make sure you have run all migrations.. (:green<y> / :red<n>)"
+run_all_migrations: "Would you like to run all migrations? (:green<y> / :red<n>)"
+running_migrations: "Running all migrations..."

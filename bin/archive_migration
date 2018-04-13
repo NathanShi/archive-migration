@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'optparse'
+require 'archive_migration'
+
+options = {}
+parser = OptionParser.new do |config|
+  config.banner = 'Supported options:'
+
+  config.on('-y', 'already run all migrations') do
+    options[:start] = true
+  end
+
+  config.on('-m', '--migrate', 'run migrations and then archive') do
+    options[:migrate] = true
+  end
+
+  config.on('-d', '--delete', 'delete version list from schema_migrations table') do
+    options[:delete] = true
+  end
+
+  config.on('-r', '--recover', 'redo all archive actions (in progress)') do
+    options[:recover] = true
+  end
+
+  config.on('-z', '--zip', 'zip archive folder (next version)') do
+    options[:zip] = true
+  end
+
+  config.on('-p', '--push', 'push archive folder to S3 (next version)') do
+    options[:push] = true
+  end
+
+  config.on('-v', '--version', 'show gem version') do
+    options[:version] = true
+  end
+
+  config.on('-h', '--help', 'show this message') do
+    options[:help] = true
+  end
+end
+parser.parse!
+
+ArchiveMigration.archive if options[:start]
+if options[:migrate]
+  ArchiveMigration.run_all_migrations
+  ArchiveMigration.archive
+end
+ArchiveMigration.delete_by_version_list([]) if options[:delete]
+ArchiveMigration.recover if options[:recover]
+puts ArchiveMigration::VERSION if options[:version]
+puts parser if options[:help] || options[:push] || options[:zip]
+ArchiveMigration.start if !options.any?
