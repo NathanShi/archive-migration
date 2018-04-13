@@ -1,0 +1,5 @@
+moving_migrations:
+- "Squasher's created the `:green<squasher>` database for its needs."
+- It might be useful to keep it if any of your deleted migrations inserts data or
+- you squash migrations in a few steps (look at -r option).
+- "Keep it (:green<yes> / :red<no>)?"
