@@ -8,7 +8,7 @@ require 'yaml'
 module ArchiveMigration
   extend self
 
-  autoload :VERSION, 'archive_migration/version'
+  require :VERSION, 'archive_migration/version'
 
   def start
     if ask(:have_run_all_migrations)
