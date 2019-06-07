@@ -52,11 +52,11 @@ module ArchiveMigration
         list = IO.read(dir)
         deleting_list << list.split(/[\s,']/).max
       end
-      delete_from_schema_table(deleting_list)
+      delete_from_database(deleting_list)
     else
       if File.exist?(dir)
         list = IO.read(dir)
-        delete_from_schema_table(list.split(/[\s,']/))
+        delete_from_database(list.split(/[\s,']/))
       end
     end
   end
@@ -150,6 +150,10 @@ module ArchiveMigration
     ensure
       client.close if client
     end
+  end
+
+  def delete_from_database(deleting_list)
+    ActiveRecord::SchemaMigration.delete_all(deleting_list)
   end
 
   def delete_from_schema_table(deleting_list)
